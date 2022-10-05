@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <title>Presupuestos para Equipos Industriales/Informáticos/Conectividad</title>
     <link rel="stylesheet" type="text/css" href="myStyles.css">
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--Select2-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <p>textoDePrueba </p>
@@ -11,104 +22,40 @@
 <input type="text" id="nombreCliente">
 <br>
 
-<table>
+<table class="table" id="tabla">
     <tr>
         <th>Cantidad</th>
         <th>Producto</th>
         <th>Precio Unitario</th>
         <th>Subtotal</th>
+        <th>&emsp;&emsp; </th>
     </tr>
     <tr>
         <td>
-            <input type="number" name="cantidadProducto" id="cantidadProductoA" min="0" onchange="calcularSubTotal(0)">
-        </td>
-        <td><select id="productosA">
-            <option value="P1A"> Producto 1</option>
-            <option value="P2A"> Producto 2</option>
-            <option value="P3A"> Producto 3</option>
-            <option value="P4A"> Producto 4</option>
-            <option value="P5A"> Producto 5</option>
-        </select>
+            <input width="" type="number" name="cantidadProducto" min="0" onchange="calcularSubTotal(0)">
         </td>
         <td>
-            <input type="number" name="precioUnitario" id="precioProductoA" min="0" onchange="calcularSubTotal(0)">
+            <select class="js-example-basic-single" name="productos">
+                <option value="P1A"> Producto 1</option>
+                <option value="P2A"> Producto 2</option>
+                <option value="P3A"> Producto 3</option>
+                <option value="P4A"> Producto 4</option>
+                <option value="P5A"> Producto 5</option>
+            </select>
         </td>
-        <td name="subtotal" id="subtotalA">
+        <td>
+            <input type="number" name="precioUnitario" min="0" onchange="calcularSubTotal(0)">
         </td>
+        <td>
+            <label name='subtotal'> </label>
+        </td>
+        <td></td>
     </tr>
-    <tr>
-        <td>
-            <input type="number" name="cantidadProducto" id="cantidadProductoB" min="0" onchange="calcularSubTotal(1)">
-        </td>
-        <td><select id="productosB">
-            <option value="P1B"> Producto 1</option>
-            <option value="P2B"> Producto 2</option>
-            <option value="P3B"> Producto 3</option>
-            <option value="P4B"> Producto 4</option>
-            <option value="P5B"> Producto 5</option>
-        </select>
-        </td>
-        <td>
-            <input type="number" name="precioUnitario" id="precioProductoB" min="0" onchange="calcularSubTotal(1)">
-        </td>
-        <td name="subtotal" id="subtotalB">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="number" name="cantidadProducto" id="cantidadProductoC" min="0" onchange="calcularSubTotal(2)">
-        </td>
-        <td><select id="productosC">
-            <option value="P1C"> Producto 1</option>
-            <option value="P2C"> Producto 2</option>
-            <option value="P3C"> Producto 3</option>
-            <option value="P4C"> Producto 4</option>
-            <option value="P5C"> Producto 5</option>
-        </select>
-        </td>
-        <td>
-            <input type="number" name="precioUnitario" id="precioProductoC" min="0" onchange="calcularSubTotal(2)">
-        </td>
-        <td name="subtotal" id="subtotalC">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="number" name="cantidadProducto" id="cantidadProductoD" min="0" onchange="calcularSubTotal(3)">
-        </td>
-        <td><select id="productosD">
-            <option value="P1d"> Producto 1</option>
-            <option value="P2D"> Producto 2</option>
-            <option value="P3D"> Producto 3</option>
-            <option value="P4D"> Producto 4</option>
-            <option value="P5D"> Producto 5</option>
-        </select>
-        </td>
-        <td>
-            <input type="number" name="precioUnitario" id="precioProductoD" min="0" onchange="calcularSubTotal(3)">
-        </td>
-        <td name="subtotal" id="subtotalD">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="number" name="cantidadProducto" id="cantidadProductoE" min="0" onchange="calcularSubTotal(4)">
-        </td>
-        <td><select id="productosE">
-            <option value="P1E"> Producto 1</option>
-            <option value="P2E"> Producto 2</option>
-            <option value="P3E"> Producto 3</option>
-            <option value="P4E"> Producto 4</option>
-            <option value="P5E"> Producto 5</option>
-        </select>
-        </td>
-        <td>
-            <input type="number" name="precioUnitario" id="precioProductoE" min="0" onchange="calcularSubTotal(4)">
-        </td>
-        <td name="subtotal" id="subtotalE">
-        </td>
-    </tr>
+
 </table>
+
+<input class="btn btn-primary btn-sm" type="button" onclick="añadirProductoATabla('tabla')" value="+">
+<br>
 
 
 <input type="button" onclick="calcularTotal()" value="Calcular total">
