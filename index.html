@@ -17,34 +17,35 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<p>textoDePrueba </p>
-<label for="nombreCliente">Cliente:</label>
-<input type="text" id="nombreCliente">
 <br>
-
+<div class="form-floating mb-3">
+    <input class="form-control" id="nombreCliente" placeholder="Juan Perez">
+    <label for="nombreCliente">Cliente</label>
+</div>
+<br>
 <table class="table" id="tabla">
     <tr>
         <th>Cantidad</th>
         <th>Producto</th>
         <th>Precio Unitario</th>
         <th>Subtotal</th>
-        <th>&emsp;&emsp; </th>
+        <th>&emsp;&emsp;</th>
     </tr>
     <tr>
         <td>
             <input width="" type="number" name="cantidadProducto" min="0" onchange="calcularSubTotal(0)">
         </td>
         <td>
-            <select class="js-example-basic-single" name="productos">
-                <option value="P1A"> Producto 1</option>
-                <option value="P2A"> Producto 2</option>
-                <option value="P3A"> Producto 3</option>
-                <option value="P4A"> Producto 4</option>
-                <option value="P5A"> Producto 5</option>
+            <select class="js-example-basic-single" name="productos" onchange="establecerValoresDeProductos()">
+                <option value="P1"> Producto 1</option>
+                <option value="P2"> Producto 2</option>
+                <option value="P3"> Producto 3</option>
+                <option value="P4"> Producto 4</option>
+                <option value="P5"> Producto 5</option>
             </select>
         </td>
         <td>
-            <input type="number" name="precioUnitario" min="0" onchange="calcularSubTotal(0)">
+            <label name="precioUnitario">$10000</label>
         </td>
         <td>
             <label name='subtotal'> </label>
@@ -53,7 +54,9 @@
     </tr>
 
 </table>
-
+<div  id="cuotas">
+    Valor de Cuota ahora 12 sin interés <label id="valCuotaSinI"></label>
+</div>
 <input class="btn btn-primary btn-sm" type="button" onclick="añadirProductoATabla('tabla')" value="+">
 <br>
 
