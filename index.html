@@ -18,7 +18,7 @@
 </head>
 <body>
 <br>
-<div class="form-floating mb-3">
+<div class="form-floating mb-3" style="width:20rem">
     <input class="form-control" id="nombreCliente" placeholder="Juan Perez">
     <label for="nombreCliente">Cliente</label>
 </div>
@@ -28,15 +28,15 @@
         <th>Cantidad</th>
         <th>Producto</th>
         <th>Precio Unitario</th>
-        <th>Subtotal</th>
+        <th>Precio Agregado</th>
         <th>&emsp;&emsp;</th>
     </tr>
     <tr>
         <td>
-            <input width="" type="number" name="cantidadProducto" min="0" onchange="calcularSubTotal(0)">
+            <input width="" type="number" name="cantidadProducto" min="0" onchange="calcularPrecioAgregado(0)">
         </td>
         <td>
-            <select class="js-example-basic-single" name="productos" onchange="establecerValoresDeProductos()">
+            <select class="js-example-basic-single" name="productos" onchange="establecerValoresDeProductos(),calcularPrecioAgregado(0)">
                 <option value="P1"> Producto 1</option>
                 <option value="P2"> Producto 2</option>
                 <option value="P3"> Producto 3</option>
@@ -48,20 +48,44 @@
             <label name="precioUnitario">$10000</label>
         </td>
         <td>
-            <label name='subtotal'> </label>
+            <label name='precioAgregado'> </label>
         </td>
         <td></td>
     </tr>
 
 </table>
-<div  id="cuotas">
-    Valor de Cuota ahora 12 sin interés <label id="valCuotaSinI"></label>
+<input class="btn btn-secondary btn-sm" type="button" onclick="añadirProductoATabla('tabla')" value="+">
+<div id="cuotas">
+    <table class="table">
+        <tr>
+            <td>Valor de Cuota ahora 12 sin interés:</td>
+            <td><label id="valCuotaSinI"></label></td>
+            <th>Subtotal:</th>
+            <td><label id="subtotal"></label></td>
+            <td>&emsp;&emsp;</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <th>IVA</th>
+            <td><label id="iva"></label></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td> Valor de Cuota ahora 18 -75% de interés:</td>
+            <td><label id="valCuotaConI"></label></td>
+            <th>TOTAL</th>
+            <td><label id="total"></label></td>
+            <td></td>
+        </tr>
+
+
+    </table>
 </div>
-<input class="btn btn-primary btn-sm" type="button" onclick="añadirProductoATabla('tabla')" value="+">
 <br>
 
 
-<input type="button" onclick="calcularTotal()" value="Calcular total">
+<input class="btn btn-primary" type="button" onclick="calcularTotal()" value="Calcular total">
 <p id="resultado"></p>
 </body>
 </html>
