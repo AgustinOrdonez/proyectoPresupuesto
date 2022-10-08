@@ -22,48 +22,33 @@
     <input class="form-control" id="nombreCliente" placeholder="Juan Perez">
     <label for="nombreCliente">Cliente</label>
 </div>
-<br>
-<table class="table" id="tabla">
-    <tr>
-        <th>Cantidad</th>
-        <th>Producto</th>
-        <th>Precio Unitario</th>
-        <th>Precio Agregado</th>
-        <th>&emsp;&emsp;</th>
-    </tr>
-    <tr>
-        <td>
-            <input width="" type="number" name="cantidadProducto" min="0" onchange="calcularPrecioAgregado(0)">
-        </td>
-        <td>
-            <select class="js-example-basic-single" name="productos" onchange="establecerValoresDeProductos(),calcularPrecioAgregado(0)">
-                <option value="P1"> Producto 1</option>
-                <option value="P2"> Producto 2</option>
-                <option value="P3"> Producto 3</option>
-                <option value="P4"> Producto 4</option>
-                <option value="P5"> Producto 5</option>
-            </select>
-        </td>
-        <td>
-            <label name="precioUnitario">$10000</label>
-        </td>
-        <td>
-            <label name='precioAgregado'> </label>
-        </td>
-        <td></td>
-    </tr>
-
-</table>
-<input class="btn btn-secondary btn-sm" type="button" onclick="añadirProductoATabla('tabla')" value="+">
-<div id="cuotas">
-    <table class="table">
-        <tr>
-            <td>Valor de Cuota ahora 12 sin interés:</td>
-            <td><label id="valCuotaSinI"></label></td>
-            <th>Subtotal:</th>
-            <td><label id="subtotal"></label></td>
-            <td>&emsp;&emsp;</td>
+<table class="text-center table" id="tabla">
+    <colgroup>
+        <tr style="font-size:x-large;">
+            <th style="width: 10%;">Cantidad</th>
+            <th style="width: 10%;">Producto</th>
+            <th style="width: 10%;">Precio Unitario</th>
+            <th style="width: 10%;">Precio Agregado</th>
+            <th style="width: 10%;">&emsp;&emsp;</th>
         </tr>
+    </colgroup>
+<!--    El resto de la tabla la crea el js-->
+</table>
+
+<input id="añadirFilas" class="btn btn-secondary btn-sm" type="button" onclick="añadirProductoATabla('tabla')"
+       value="+">
+
+<div id="cuotas">
+    <table class="text-center table">
+        <colgroup>
+            <tr>
+                <td style="width: 12.7%">Valor de Cuota ahora 12 sin interés:</td>
+                <td style="width: 10%"><label id="valCuotaSinI"></label></td>
+                <th style="width: 10%">Subtotal:</th>
+                <td style="width: 10%"><label id="subtotal"></label></td>
+                <td style="width: 10%">&emsp;&emsp;</td>
+            </tr>
+        </colgroup>
         <tr>
             <td></td>
             <td></td>
