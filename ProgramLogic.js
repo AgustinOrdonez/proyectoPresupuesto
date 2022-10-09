@@ -21,7 +21,7 @@ async function crearPrimeraLineaTabla(idTabla) {//TODO: es igual que la otra fun
     let tr = tabla.insertRow(filas++)
     let elemento = tr.insertCell(0)
 
-    elemento.innerHTML = "<input type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
+    elemento.innerHTML = "<input style=\"width: 50% \" type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
 
     elemento = tr.insertCell(1)
 
@@ -98,7 +98,7 @@ function calcularPrecioAgregado(numeroDeGrupo) {
             document.getElementsByName("precioAgregado").item(numeroDeGrupo).innerText = "";
         }
         else {
-            document.getElementsByName("precioAgregado").item(numeroDeGrupo).innerText = "$"+precioProducto * cantidadDeProductos;
+            document.getElementsByName("precioAgregado").item(numeroDeGrupo).innerText = "$" + precioProducto * cantidadDeProductos;
         }
     }
 }
@@ -140,7 +140,7 @@ async function añadirProductoATabla(idTabla) {//Todo:Puede haber más pedidos d
     let tr = tabla.insertRow(filas++)
     let elemento = tr.insertCell(0)
 
-    elemento.innerHTML = "<input type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
+    elemento.innerHTML = "<input style=\"width: 50%\" type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
 
     elemento = tr.insertCell(1)
 
@@ -186,3 +186,43 @@ function establecerValoresDeProductos() {
 
     }
 }
+
+
+function exportarPDF() {
+    html2canvas(document.querySelector("#tabla"), {
+        scale: 4
+    }).then(canvas => {//Todo: Con más de 13 lineas se rompe, queda lo segundo afuera
+        let doc = new jsPDF("l", "px");
+        let img = canvas.toDataURL("image/png");
+        doc.addImage(img, 'JPEG', 27, 27, window.innerWidth / 2, 0);
+        html2canvas(document.querySelector("#cuotas"), {
+            scale: 4
+        }).then(canvas2 => {
+            var img2 = canvas2.toDataURL("image/png");
+            doc.addImage(img2, 'JPEG', 27, 27 + canvas.height / (2 * 4), window.innerWidth / 2, 0);
+            // doc.output("dataurlnewwindow")
+            doc.save("test.pdf")
+        });
+    });
+}
+
+async function imprimir() {
+
+    let nuevaVentana = window.open("", "PRINT");
+
+    nuevaVentana.document.write("<html>");
+    nuevaVentana.document.write(document.head.outerHTML);
+    nuevaVentana.document.write("<body>");
+    nuevaVentana.document.write(document.getElementById("tabla").outerHTML);
+    nuevaVentana.document.write(document.getElementById("cuotas").outerHTML);
+
+    nuevaVentana.document.write("</body></html>");
+
+    nuevaVentana.document.close(); // necessary for IE >= 10
+    nuevaVentana.focus(); // necessary for IE >= 10*/
+    await new Promise(r => setTimeout(r, 10));//Todo: MUY VILLERO, pero no puedo solucinarlo
+    nuevaVentana.print()
+    nuevaVentana.close();
+}
+
+
