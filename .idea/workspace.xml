@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Exportar a PDF e imprimir y fixeo de alineación tabla">
-      <change afterPath="$PROJECT_DIR$/ExportToPDF.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/printer.png" afterDir="false" />
+    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="First commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProgramLogic.js" beforeDir="false" afterPath="$PROJECT_DIR$/ProgramLogic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myStyles.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +30,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="f8c76f62-cf72-4afa-8ce9-e28bdf18ddcd" />
@@ -110,6 +107,7 @@
       <workItem from="1665268067981" duration="6685000" />
       <workItem from="1665281011820" duration="7053000" />
       <workItem from="1665325966283" duration="4708000" />
+      <workItem from="1665348201408" duration="2061000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1664746165268</created>
@@ -200,7 +198,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>

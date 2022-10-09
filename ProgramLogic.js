@@ -191,19 +191,20 @@ function establecerValoresDeProductos() {
 function exportarPDF() {
     html2canvas(document.querySelector("#tabla"), {
         scale: 4
-    }).then(canvas => {//Todo: Con más de 16 lineas se rompe, queda afuera el resto de lineas
+    }).then(canvas => {//Todo: Si ocupa más de 2 hojas no entra, tendría que hacer un while o algo
         let doc = new jsPDF("l", "px");
         let img = canvas.toDataURL("image/png");
-        doc.addImage(img, 'JPEG', 27, 27, window.innerWidth / 2, 0);
+        doc.addImage(img, 'JPEG', 27, 15, window.innerWidth / 2, 0);
         if (canvas.height>2704) {
             doc.addPage("a4","l")
-            canvas.height=0
+            doc.addImage(img, 'JPEG', 27, 15-doc.internal.pageSize.getHeight(), window.innerWidth / 2, 0);
+            canvas.height-=doc.internal.pageSize.getHeight()*8
         }
         html2canvas(document.querySelector("#cuotas"), {
             scale: 4
         }).then(canvas2 => {
             var img2 = canvas2.toDataURL("image/png");
-            doc.addImage(img2, 'JPEG', 27, 27 + canvas.height / (2 * 4), window.innerWidth / 2, 0);
+            doc.addImage(img2, 'JPEG', 27, 15 + canvas.height / (2 * 4), window.innerWidth / 2, 0);
             // doc.output("dataurlnewwindow")
             doc.save("test.pdf")
         });
