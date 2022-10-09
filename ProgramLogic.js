@@ -191,10 +191,10 @@ function establecerValoresDeProductos() {
 function exportarPDF() {
     html2canvas(document.querySelector("#tabla"), {
         scale: 4
-    }).then(canvas => {//Todo: Si ocupa más de 2 hojas no entra, tendría que hacer un while o algo
+    }).then(canvas => {//Todo: Si ocupa más de 2 hojas los números pueden quedar entre 2 hojas, habría que recortarlo e inciar desde ese punto......
         let doc = new jsPDF("l", "px");
         let img = canvas.toDataURL("image/png");
-        doc.addImage(img, 'JPEG', 27, 15, window.innerWidth / 2, 0);
+        doc.addImage(img, 'JPEG', 27, 15, doc.internal.pageSize.getWidth()*1.125, 0);
         if (canvas.height>2704) {
             doc.addPage("a4","l")
             doc.addImage(img, 'JPEG', 27, 15-doc.internal.pageSize.getHeight(), window.innerWidth / 2, 0);
@@ -204,7 +204,7 @@ function exportarPDF() {
             scale: 4
         }).then(canvas2 => {
             var img2 = canvas2.toDataURL("image/png");
-            doc.addImage(img2, 'JPEG', 27, 15 + canvas.height / (2 * 4), window.innerWidth / 2, 0);
+            doc.addImage(img2, 'JPEG', 27, 15 + canvas.height / (2 * 4), doc.internal.pageSize.getWidth()*1.125, 0);
             // doc.output("dataurlnewwindow")
             doc.save("test.pdf")
         });
@@ -225,7 +225,7 @@ async function imprimir() {
 
     nuevaVentana.document.close(); // necessary for IE >= 10
     nuevaVentana.focus(); // necessary for IE >= 10*/
-    await new Promise(r => setTimeout(r, 10));//Todo: MUY VILLERO, pero no puedo solucinarlo
+    await new Promise(r => setTimeout(r, 100));//Todo: MUY VILLERO, pero no puedo solucinarlo
     nuevaVentana.print()
     nuevaVentana.close();
 }
