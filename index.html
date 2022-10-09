@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Presupuestos para Equipos de construccion</title>
-    <link rel="stylesheet" type="text/css" href="myStyles.css">
     <!--JQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!--Select2-->
@@ -16,9 +15,8 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
     <!--JsPDF-->
-<!--    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <!--html2canvas-->
     <script src="html2canvas.js"></script>
 </head>
 <body>
@@ -41,7 +39,7 @@
 </table>
 
 <input id="añadirFilas" class="btn btn-secondary btn-sm" type="button" onclick="añadirProductoATabla('tabla')"
-       value="+">
+       value="+" style="margin-left: 5.4%">
 
 <div id="cuotas">
     <table class="text-center table" >
@@ -70,16 +68,14 @@
             <td></td>
         </tr>
 
-
     </table>
 </div>
 <br>
 
+<input class="btn btn-primary" type="button" onclick="calcularTotal()" value="Calcular total" >
 
-<input class="btn btn-primary" type="button" onclick="calcularTotal()" value="Calcular total">
-
-<input class="btn btn-primary" type="button" onclick="exportarPDF()" value="PDF TEMP">
-<input class="btn btn-primary" type="button" onclick="imprimir()" value="PRINT TEMP">
+<input type="image" src="ExportToPDF.png" height="50" onclick="exportarPDF()" style="position: absolute; right: 10%; " >
+<input type="image" src="printer.png" height="50" type="button" onclick="imprimir()"  style="position: absolute; right: 17%;" >
 </body>
 </html>
 

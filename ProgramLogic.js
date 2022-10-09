@@ -44,7 +44,7 @@ async function crearPrimeraLineaTabla(idTabla) {//TODO: es igual que la otra fun
 
 }
 
-function calcularTotal() {//Todo falta tener en cuenta las cuotas
+function calcularTotal() {
     let subtotal = 0
     for (let i = 0; i < document.getElementsByName("precioAgregado").length; i++) {
         let precioAgregadoActual = parseInt(document.getElementsByName("precioAgregado")[i].innerText.slice(1))
@@ -79,11 +79,11 @@ function calcularTotal() {//Todo falta tener en cuenta las cuotas
         }
     }
     else {
-        document.getElementById("subtotal").innerText = ""
-        document.getElementById("iva").innerText = ""
-        document.getElementById("total").innerText = ""
-        document.getElementById("valCuotaSinI").innerText = ""
-        document.getElementById("valCuotaConI").innerText = ""
+        document.getElementById("subtotal").innerText = "$0"
+        document.getElementById("iva").innerText = "$0"
+        document.getElementById("total").innerText = "$0"
+        document.getElementById("valCuotaSinI").innerText = "$0"
+        document.getElementById("valCuotaConI").innerText = "$0"
 
     }
 
@@ -191,10 +191,14 @@ function establecerValoresDeProductos() {
 function exportarPDF() {
     html2canvas(document.querySelector("#tabla"), {
         scale: 4
-    }).then(canvas => {//Todo: Con más de 13 lineas se rompe, queda lo segundo afuera
+    }).then(canvas => {//Todo: Con más de 16 lineas se rompe, queda afuera el resto de lineas
         let doc = new jsPDF("l", "px");
         let img = canvas.toDataURL("image/png");
         doc.addImage(img, 'JPEG', 27, 27, window.innerWidth / 2, 0);
+        if (canvas.height>2704) {
+            doc.addPage("a4","l")
+            canvas.height=0
+        }
         html2canvas(document.querySelector("#cuotas"), {
             scale: 4
         }).then(canvas2 => {
