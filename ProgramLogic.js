@@ -197,7 +197,7 @@ function exportarPDF() {
         doc.addImage(img, 'JPEG', 27, 15, doc.internal.pageSize.getWidth()*1.125, 0);
         if (canvas.height>2704) {
             doc.addPage("a4","l")
-            doc.addImage(img, 'JPEG', 27, 15-doc.internal.pageSize.getHeight(), window.innerWidth / 2, 0);
+            doc.addImage(img, 'JPEG', 27, 15-doc.internal.pageSize.getHeight(), doc.internal.pageSize.getWidth()*1.125, 0);
             canvas.height-=doc.internal.pageSize.getHeight()*8
         }
         html2canvas(document.querySelector("#cuotas"), {
