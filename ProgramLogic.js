@@ -1,12 +1,20 @@
-
 const mapaPreciosProductos = new Map();
-$.getJSON('productos.json', function (data) {
+// $.getJSON('productos.json', function (data) {
+//
+//     for (let i = 0; i < 1000; i++) {
+//         mapaPreciosProductos.set(data[i].producto, data[i].precio);
+//     }
+//     crearPrimeraLineaTabla("tabla")
+// });
 
-    for (let i = 0; i < 1000; i++) {
-        mapaPreciosProductos.set(data[i].producto, data[i].precio);
-    }
-    crearPrimeraLineaTabla("tabla")
-});
+$.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
+    .done((data) => {
+        for (let i = 0; i < 1000; i++) {
+            mapaPreciosProductos.set(data[i].producto, data[i].precio);
+        }
+        crearPrimeraLineaTabla("tabla")
+    })
+    .fail((error) => console.log("ERROR"))
 
 
 async function crearPrimeraLineaTabla(idTabla) {//TODO: es igual que la otra función pero con menos lineas, debería hacerlo bien
@@ -110,21 +118,6 @@ function conseguirContenidoSelect() {
             result = itearator.next();
         }
         resolve(contenidoSelect)
-
-        // $.getJSON('productos.json', function (data) {
-        //     const mapaPreciosProductos = new Map();
-        //     for (let i = 0; i < 1000; i++) {
-        //         mapaPreciosProductos.set(data[i].producto, data[i].precio);
-        //     }
-        //     let itearator = mapaPreciosProductos.keys()
-        //     let result = itearator.next()
-        //     contenidoSelect = ""
-        //     while (!result.done) {
-        //         contenidoSelect += "<option value=" + result.value + ">" + result.value + "</option>\n"
-        //         result = itearator.next();
-        //     }
-        //     resolve(contenidoSelect)
-        // });
     })
 }
 
@@ -189,7 +182,6 @@ function exportarPDF() {
         let doc = new jsPDF("l", "px");
         let img = canvas.toDataURL("image/png");
         doc.addImage(img, 'JPEG', 27, 15, doc.internal.pageSize.getWidth() * 1.125, 0);
-        console.log(doc.internal.pageSize.getHeight())
         let alturaActual = 15 + canvas.height * (doc.internal.pageSize.getWidth() * 1.125 / canvas.width)
         let i = 1
         while ((alturaActual) > doc.internal.pageSize.getHeight()) {//while
@@ -202,7 +194,7 @@ function exportarPDF() {
         html2canvas(document.querySelector("#cuotas"), {
             scale: 4
         }).then(canvas2 => {
-            var img2 = canvas2.toDataURL("image/png");
+            let img2 = canvas2.toDataURL("image/png");
             doc.addImage(img2, 'JPEG', 27, alturaActual, doc.internal.pageSize.getWidth() * 1.125, 0);
             alturaActual += canvas2.height * (doc.internal.pageSize.getWidth() * 1.125 / canvas2.width)
             if (alturaActual > doc.internal.pageSize.getHeight()) {
@@ -229,14 +221,13 @@ function exportarPDF() {
 //     nuevaVentana.document.close();
 //     // necessary for IE >= 10
 //     nuevaVentana.focus(); // necessary for IE >= 10*/
-//     await new Promise(r => setTimeout(r, 100));//Todo: MUY VILLERO, pero no puedo solucinarlo
+//     await new Promise(r => setTimeout(r, 100));//MUY VILLERO, pero no puedo solucinarlo
 //     nuevaVentana.print()
 //     nuevaVentana.close();
 // }
 
 function imprimir() {
     let div = document.getElementById("imprimir")
-    console.log(div)
     div.innerHTML = "<html>" +
         "<body>" +
         document.getElementById("tabla").outerHTML +
