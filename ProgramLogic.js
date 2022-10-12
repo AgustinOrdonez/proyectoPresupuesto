@@ -1,9 +1,3 @@
-/**Inicializar slect2*/
-$(document).ready(function () {
-    $('.js-example-basic-single').select2({
-        width: 'style'
-    });
-});
 
 const mapaPreciosProductos = new Map();
 $.getJSON('productos.json', function (data) {
@@ -191,43 +185,73 @@ function establecerValoresDeProductos() {
 function exportarPDF() {
     html2canvas(document.querySelector("#tabla"), {
         scale: 4
-    }).then(canvas => {//Todo: Si ocupa más de 2 hojas los números pueden quedar entre 2 hojas, habría que recortarlo e inciar desde ese punto......
+    }).then(canvas => {//Todo: Se puede quedar una imagen entre 2 hojas y queda cortado, habría que recortarlo e inciar desde ese punto......
         let doc = new jsPDF("l", "px");
         let img = canvas.toDataURL("image/png");
-        doc.addImage(img, 'JPEG', 27, 15, doc.internal.pageSize.getWidth()*1.125, 0);
-        if (canvas.height>2704) {
-            doc.addPage("a4","l")
-            doc.addImage(img, 'JPEG', 27, 15-doc.internal.pageSize.getHeight(), doc.internal.pageSize.getWidth()*1.125, 0);
-            canvas.height-=doc.internal.pageSize.getHeight()*8
+        doc.addImage(img, 'JPEG', 27, 15, doc.internal.pageSize.getWidth() * 1.125, 0);
+        console.log(doc.internal.pageSize.getHeight())
+        let alturaActual = 15 + canvas.height * (doc.internal.pageSize.getWidth() * 1.125 / canvas.width)
+        let i = 1
+        while ((alturaActual) > doc.internal.pageSize.getHeight()) {//while
+            doc.addPage("a4", "l")
+            doc.addImage(img, 'JPEG', 27, 15 - doc.internal.pageSize.getHeight() * i, doc.internal.pageSize.getWidth() * 1.125, 0);
+            alturaActual -= doc.internal.pageSize.getHeight()
+            i++
         }
+
         html2canvas(document.querySelector("#cuotas"), {
             scale: 4
         }).then(canvas2 => {
             var img2 = canvas2.toDataURL("image/png");
-            doc.addImage(img2, 'JPEG', 27, 15 + canvas.height / (2 * 4), doc.internal.pageSize.getWidth()*1.125, 0);
+            doc.addImage(img2, 'JPEG', 27, alturaActual, doc.internal.pageSize.getWidth() * 1.125, 0);
+            alturaActual += canvas2.height * (doc.internal.pageSize.getWidth() * 1.125 / canvas2.width)
+            if (alturaActual > doc.internal.pageSize.getHeight()) {
+                doc.addPage("a4", "l")
+                doc.addImage(img2, 'JPEG', 27, 15 + (canvas.height * (doc.internal.pageSize.getWidth() * 1.125 / canvas.width)) - doc.internal.pageSize.getHeight(), doc.internal.pageSize.getWidth() * 1.125, 0);
+            }
             // doc.output("dataurlnewwindow")
-            doc.save("test.pdf")
+            doc.save("test.pdf");
         });
     });
 }
 
-async function imprimir() {
+// async function imprimir() {
+//     let nuevaVentana = window.open("", "PRINT");
+//
+//     nuevaVentana.document.write("<html>");
+//     nuevaVentana.document.write(document.head.outerHTML);
+//     nuevaVentana.document.write("<body>");
+//     nuevaVentana.document.write(document.getElementById("tabla").outerHTML);
+//     nuevaVentana.document.write(document.getElementById("cuotas").outerHTML);
+//
+//     nuevaVentana.document.write("</body></html>");
+//
+//     nuevaVentana.document.close();
+//     // necessary for IE >= 10
+//     nuevaVentana.focus(); // necessary for IE >= 10*/
+//     await new Promise(r => setTimeout(r, 100));//Todo: MUY VILLERO, pero no puedo solucinarlo
+//     nuevaVentana.print()
+//     nuevaVentana.close();
+// }
 
-    let nuevaVentana = window.open("", "PRINT");
+function imprimir() {
+    let div = document.getElementById("imprimir")
+    console.log(div)
+    div.innerHTML = "<html>" +
+        "<body>" +
+        document.getElementById("tabla").outerHTML +
+        document.getElementById("cuotas").outerHTML +
+        "</body></html>"
 
-    nuevaVentana.document.write("<html>");
-    nuevaVentana.document.write(document.head.outerHTML);
-    nuevaVentana.document.write("<body>");
-    nuevaVentana.document.write(document.getElementById("tabla").outerHTML);
-    nuevaVentana.document.write(document.getElementById("cuotas").outerHTML);
+    document.body.style.visibility = "hidden"
+    div.style.visibility = "visible"
 
-    nuevaVentana.document.write("</body></html>");
+    window.print()
 
-    nuevaVentana.document.close(); // necessary for IE >= 10
-    nuevaVentana.focus(); // necessary for IE >= 10*/
-    await new Promise(r => setTimeout(r, 100));//Todo: MUY VILLERO, pero no puedo solucinarlo
-    nuevaVentana.print()
-    nuevaVentana.close();
+    document.body.style.visibility = "visible"
+    div.innerHTML = ""
 }
+
+
 
 
