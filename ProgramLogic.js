@@ -6,7 +6,9 @@ const mapaPreciosProductos = new Map();
 //     }
 //     crearPrimeraLineaTabla("tabla")
 // });
+document.getElementById("noMásFilas").style.display = "none"
 
+$.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
 $.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
     .done((data) => {
         for (let i = 0; i < 1000; i++) {
@@ -27,7 +29,7 @@ async function crearPrimeraLineaTabla(idTabla) {//TODO: es igual que la otra fun
 
     elemento = tr.insertCell(1)
 
-    elemento.innerHTML = "<select class=\"js-example-basic-single\" name=\"productos\" onchange=\"establecerValoresDeProductos(),calcularPrecioAgregado(" + (filas - 2) + ")\">" + await conseguirContenidoSelect();
+    elemento.innerHTML = "<select class=\"js-example-basic-single\" name=\"productos\" onchange=\"establecerValoresDeProductos(),calcularPrecioAgregado(" + (filas - 2) + "),desabilitarOpcionesRepetidas() \">" + await conseguirContenidoSelect();
 
     elemento = tr.insertCell(2)
     elemento.innerHTML = "<label name=\"precioUnitario\">$10000</label>";
@@ -113,8 +115,22 @@ function conseguirContenidoSelect() {
         let itearator = mapaPreciosProductos.keys()
         let result = itearator.next()
         contenidoSelect = ""
+
+        let productosSeleccionados = []
+        for (let i = 0; i < (filas - 1); i++) {
+            if (document.getElementsByName("productos")[i] != undefined) {
+                productosSeleccionados.push(document.getElementsByName("productos")[i].value);
+            }
+        }
+        let disabeled = "";
         while (!result.done) {
-            contenidoSelect += "<option value=\"" + result.value + "\">" + result.value + "</option>\n"
+            if (productosSeleccionados.includes(result.value)) {
+                disabeled = "disabled"
+            }
+            else {
+                disabeled = ""
+            }
+            contenidoSelect += "<option value=\"" + result.value + "\" "+disabeled+" >" + result.value + "</option>\n";
             result = itearator.next();
         }
         resolve(contenidoSelect)
@@ -123,32 +139,39 @@ function conseguirContenidoSelect() {
 
 
 async function añadirProductoATabla(idTabla) {//Todo:Puede haber más pedidos de producto que cantidad de productos, pidiendo 2 veces el mismo
-    let tabla = document.getElementById(idTabla)
-    let tr = tabla.insertRow(filas++)
-    let elemento = tr.insertCell(0)
+    if (filas - 1 < mapaPreciosProductos.size) {
+        let tabla = document.getElementById(idTabla);
+        let tr = tabla.insertRow(filas++);
+        let elemento = tr.insertCell(0);
 
-    elemento.innerHTML = "<input style=\"width: 50%\" type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
+        elemento.innerHTML = "<input style=\"width: 50%\" type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
 
-    elemento = tr.insertCell(1)
+        elemento = tr.insertCell(1);
 
-    elemento.innerHTML = "<select class=\"js-example-basic-single\" name=\"productos\" onchange=\"establecerValoresDeProductos(),calcularPrecioAgregado(" + (filas - 2) + ")\">" + await conseguirContenidoSelect();
+        elemento.innerHTML = "<select class=\"js-example-basic-single\" name=\"productos\" onchange=\"establecerValoresDeProductos(),calcularPrecioAgregado(" + (filas - 2) + "),desabilitarOpcionesRepetidas()\">" + await conseguirContenidoSelect();
 
-    elemento = tr.insertCell(2)
-    elemento.innerHTML = "<label name=\"precioUnitario\"></label>";
-    establecerValoresDeProductos()
+        elemento = tr.insertCell(2);
+        elemento.innerHTML = "<label name=\"precioUnitario\"></label>";
+        establecerValoresDeProductos();
 
-    elemento = tr.insertCell(3)
-    elemento.innerHTML = "<label name='precioAgregado'> </label>";
-    /**Inicializar slect2*/
-    $(document).ready(function () {
-        $('.js-example-basic-single').select2({
-            width: 'style'
+        elemento = tr.insertCell(3);
+        elemento.innerHTML = "<label name='precioAgregado'> </label>";
+        /**Inicializar slect2*/
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                width: 'style'
+            });
         });
-    });
 
-    elemento = tr.insertCell(4)
-    elemento.innerHTML =
-        "<input class=\"btn btn-secondary btn-sm\" type=\"button\" onClick=\"eliminarProductoDeTabla('" + idTabla + "'," + tr.rowIndex + ")\" value=\"-\">"
+        elemento = tr.insertCell(4);
+        elemento.innerHTML =
+            "<input class=\"btn btn-secondary btn-sm\" type=\"button\" onClick=\"eliminarProductoDeTabla('" + idTabla + "'," + tr.rowIndex + ")\" value=\"-\">";
+        desabilitarOpcionesRepetidas()
+    }
+    else {
+        document.getElementById("noMásFilas").style.display = "inline"
+
+    }
 }
 
 
@@ -157,6 +180,26 @@ function eliminarProductoDeTabla(idTabla, fila) {
     tabla.deleteRow((fila))
     filas--
     resetearIndicesDeFila(idTabla)
+    document.getElementById("noMásFilas").style.display = "none"
+}
+
+function desabilitarOpcionesRepetidas() {
+    let productosSeleccionados = []
+    for (let i = 0; i < (filas - 1); i++) {
+        productosSeleccionados.push(document.getElementsByName("productos")[i].value)
+    }
+    for (let i = 0; i < (filas - 1); i++) {
+        for (let j = 0; j < document.getElementsByName("productos")[i].getElementsByTagName("option").length; j++) {
+            if (productosSeleccionados.includes(document.getElementsByName("productos")[i].getElementsByTagName("option")[j].value)) {
+                document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = true;
+            }
+            else {
+                document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = false;
+
+            }
+        }
+    }
+
 }
 
 function resetearIndicesDeFila(idTabla) {
