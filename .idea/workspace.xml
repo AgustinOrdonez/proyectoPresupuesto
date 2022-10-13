@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Ahora descarga el productos.js desde internet">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProgramLogic.js" beforeDir="false" afterPath="$PROJECT_DIR$/ProgramLogic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +109,7 @@
       <workItem from="1665348201408" duration="2061000" />
       <workItem from="1665573027423" duration="14219000" />
       <workItem from="1665607998695" duration="1370000" />
-      <workItem from="1665616770761" duration="4776000" />
+      <workItem from="1665616770761" duration="5121000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1664746165268</created>
@@ -171,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665609432324</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles">
+      <created>1665621907569</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1665621907569</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +258,8 @@
     <MESSAGE value="Exportar a PDF e imprimir y fixeo de alineación tabla" />
     <MESSAGE value="Cuando no hay total se pone en $0 en vez de en blanco. Medianamente arreglado el tema de que se salgan del pdf, ahora entran 16 y la tabla pasa al coso de abajo" />
     <MESSAGE value="Ahora descarga el productos.js desde internet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ahora descarga el productos.js desde internet" />
+    <MESSAGE value="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

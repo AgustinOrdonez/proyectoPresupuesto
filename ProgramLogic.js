@@ -9,7 +9,6 @@ const mapaPreciosProductos = new Map();
 document.getElementById("noMásFilas").style.display = "none"
 
 $.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
-$.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
     .done((data) => {
         for (let i = 0; i < 1000; i++) {
             mapaPreciosProductos.set(data[i].producto, data[i].precio);
