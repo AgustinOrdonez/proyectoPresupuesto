@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MyStyles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo">
       <change beforePath="$PROJECT_DIR$/ProgramLogic.js" beforeDir="false" afterPath="$PROJECT_DIR$/ProgramLogic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/productos.json" beforeDir="false" afterPath="$PROJECT_DIR$/productos.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoPresupuesto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoPresupuesto.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +29,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -63,7 +58,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "JavaScript.Libraries",
+    "settings.editor.selected.configurable": "configurable.group.tools",
     "two.files.diff.last.used.file": "Z:/Mecatronica/Alumnos/Primero/Ordonez/Desarrollo/proyectoPresupuesto/ProgramLogic.js"
   }
 }]]></component>
@@ -120,7 +115,7 @@
       <workItem from="1665573027423" duration="14219000" />
       <workItem from="1665607998695" duration="1370000" />
       <workItem from="1665616770761" duration="5121000" />
-      <workItem from="1666178002134" duration="10565000" />
+      <workItem from="1666178002134" duration="11271000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1664746165268</created>
@@ -185,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665621907569</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo">
+      <created>1666189251582</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1666189251582</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +272,8 @@
     <MESSAGE value="Cuando no hay total se pone en $0 en vez de en blanco. Medianamente arreglado el tema de que se salgan del pdf, ahora entran 16 y la tabla pasa al coso de abajo" />
     <MESSAGE value="Ahora descarga el productos.js desde internet" />
     <MESSAGE value="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles" />
+    <MESSAGE value="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

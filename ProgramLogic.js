@@ -12,13 +12,13 @@ let productos = []
 $.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
     .done((data) => {
         for (let i = 0; i < 1000; i++) {
-            if (productos.find(produto => produto.nombre == data[i].nombre) === undefined) {
+            if (productos.find(produto => produto.nombre === data[i].nombre) === undefined) {
                 productos.push(data[i]);
             }
         }
         añadirProductoATabla("tabla")
     })
-    .fail((error) => console.log("ERROR"))
+    .fail((error) => console.log("ERROR:"+error))
 
 
 function calcularTotal() {
@@ -64,7 +64,7 @@ function calcularTotal() {
 
 function calcularPrecioAgregado(numeroDeGrupo) {
     let cantidadDeProductos = parseInt(document.getElementsByName("cantidadProducto")[numeroDeGrupo].value)
-    let precioProducto = document.getElementsByName("precioUnitario")[numeroDeGrupo].innerText.slice(1)
+    let precioProducto = parseInt(document.getElementsByName("precioUnitario")[numeroDeGrupo].innerText.slice(1))
 
     if (!isNaN(precioProducto) && !isNaN(cantidadDeProductos)) {
         if (cantidadDeProductos === 0) {
@@ -158,12 +158,7 @@ function desabilitarOpcionesRepetidas() {
     }
     for (let i = 0; i < (filas - 1); i++) {
         for (let j = 0; j < document.getElementsByName("productos")[i].getElementsByTagName("option").length; j++) {
-            if (productosSeleccionados.includes(document.getElementsByName("productos")[i].getElementsByTagName("option")[j].value)) {
-                document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = true;
-            } else {
-                document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = false;
-
-            }
+            document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = productosSeleccionados.includes(document.getElementsByName("productos")[i].getElementsByTagName("option")[j].value);
         }
     }
 
