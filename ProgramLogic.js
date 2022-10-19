@@ -1,51 +1,25 @@
-const mapaPreciosProductos = new Map();
+let productos = []
 // $.getJSON('productos.json', function (data) {
-//
 //     for (let i = 0; i < 1000; i++) {
-//         mapaPreciosProductos.set(data[i].producto, data[i].precio);
+//         if (productos.find(produto => produto.nombre == data[i].nombre) === undefined) {
+//             productos.push(data[i]);
+//         }
 //     }
 //     crearPrimeraLineaTabla("tabla")
 // });
-document.getElementById("noMásFilas").style.display = "none"
+// document.getElementById("noMásFilas").style.display = "none"
 
 $.get("https://www.cfihoelters.com.ar/desarrollo/ordonez/productos.json")//https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf para que funque normal
     .done((data) => {
         for (let i = 0; i < 1000; i++) {
-            mapaPreciosProductos.set(data[i].producto, data[i].precio);
+            if (productos.find(produto => produto.nombre == data[i].nombre) === undefined) {
+                productos.push(data[i]);
+            }
         }
-        crearPrimeraLineaTabla("tabla")
+        añadirProductoATabla("tabla")
     })
     .fail((error) => console.log("ERROR"))
 
-
-async function crearPrimeraLineaTabla(idTabla) {//TODO: es igual que la otra función pero con menos lineas, debería hacerlo bien
-    let filas = 1
-    let tabla = document.getElementById(idTabla)
-    let tr = tabla.insertRow(filas++)
-    let elemento = tr.insertCell(0)
-
-    elemento.innerHTML = "<input style=\"width: 50% \" type=\"number\" name=\"cantidadProducto\" min=\"0\" onChange=\"calcularPrecioAgregado(" + (filas - 2) + ")\">";
-
-    elemento = tr.insertCell(1)
-
-    elemento.innerHTML = "<select class=\"js-example-basic-single\" name=\"productos\" onchange=\"establecerValoresDeProductos(),calcularPrecioAgregado(" + (filas - 2) + "),desabilitarOpcionesRepetidas() \">" + await conseguirContenidoSelect();
-
-    elemento = tr.insertCell(2)
-    elemento.innerHTML = "<label name=\"precioUnitario\">$10000</label>";
-
-    establecerValoresDeProductos()
-
-    elemento = tr.insertCell(3)
-    elemento.innerHTML = "<label name='precioAgregado'> </label>";
-    /**Inicializar slect2*/
-    $(document).ready(function () {
-        $('.js-example-basic-single').select2({
-            width: 'style'
-        });
-    });
-    tr.insertCell(4)
-
-}
 
 function calcularTotal() {
     let subtotal = 0
@@ -62,26 +36,22 @@ function calcularTotal() {
 
         if ((subtotal * 0.21) % 1 !== 0) {
             document.getElementById("iva").innerText = "$" + (Math.round(subtotal * 0.21 * 100) / 100).toFixed(2);
-        }
-        else {
+        } else {
             document.getElementById("iva").innerText = "$" + subtotal * 0.21
         }
         document.getElementById("total").innerText = "$" + (subtotal + subtotal * 0.21)
         if ((subtotal * 1.21 / 12) % 1 !== 0) {
             document.getElementById("valCuotaSinI").innerText = "$" + (Math.round(subtotal * 1.21 / 12 * 100) / 100).toFixed(2);
-        }
-        else {
+        } else {
             document.getElementById("valCuotaSinI").innerText = "$" + subtotal * 1.21 / 12;
         }
 
         if (((subtotal * 1.75 * 1.21) / 12) % 1 !== 0) {
             document.getElementById("valCuotaConI").innerText = "$" + (Math.round((subtotal * 1.75 * 1.21) / 12 * 100) / 100).toFixed(2);
-        }
-        else {
+        } else {
             document.getElementById("valCuotaConI").innerText = "$" + (subtotal * 1.75 * 1.21) / 12;
         }
-    }
-    else {
+    } else {
         document.getElementById("subtotal").innerText = "$0"
         document.getElementById("iva").innerText = "$0"
         document.getElementById("total").innerText = "$0"
@@ -99,46 +69,42 @@ function calcularPrecioAgregado(numeroDeGrupo) {
     if (!isNaN(precioProducto) && !isNaN(cantidadDeProductos)) {
         if (cantidadDeProductos === 0) {
             document.getElementsByName("precioAgregado").item(numeroDeGrupo).innerText = "";
-        }
-        else {
+        } else {
             document.getElementsByName("precioAgregado").item(numeroDeGrupo).innerText = "$" + precioProducto * cantidadDeProductos;
         }
     }
 }
 
-let filas = 2;
+let filas = 1;
 
 function conseguirContenidoSelect() {
     return new Promise((resolve) => {
-        let contenidoSelect
-        let itearator = mapaPreciosProductos.keys()
-        let result = itearator.next()
-        contenidoSelect = ""
+        let contenidoSelect=""
 
-        let productosSeleccionados = []
+        let productosSeleccionados = []//Las ids
         for (let i = 0; i < (filas - 1); i++) {
-            if (document.getElementsByName("productos")[i] != undefined) {
-                productosSeleccionados.push(document.getElementsByName("productos")[i].value);
+            if (document.getElementsByName("productos")[i] !== undefined) {
+                productosSeleccionados.push(parseInt(document.getElementsByName("productos")[i].value));
             }
         }
-        let disabeled = "";
-        while (!result.done) {
-            if (productosSeleccionados.includes(result.value)) {
-                disabeled = "disabled"
+        let disabled = "";
+        for (let i = 0; i < productos.length; i++) {
+            if (productosSeleccionados.includes(productos[i].id)) {
+                disabled = "disabled";
+            } else {
+                disabled = ""
             }
-            else {
-                disabeled = ""
-            }
-            contenidoSelect += "<option value=\"" + result.value + "\" "+disabeled+" >" + result.value + "</option>\n";
-            result = itearator.next();
+
+            contenidoSelect += "<option value=\"" + productos[i].id + "\" " + disabled + " >" + productos[i].nombre + "</option>\n";
         }
+
         resolve(contenidoSelect)
     })
 }
 
 
-async function añadirProductoATabla(idTabla) {//Todo:Puede haber más pedidos de producto que cantidad de productos, pidiendo 2 veces el mismo
-    if (filas - 1 < mapaPreciosProductos.size) {
+async function añadirProductoATabla(idTabla) {
+    if (filas - 1 < productos.length) {
         let tabla = document.getElementById(idTabla);
         let tr = tabla.insertRow(filas++);
         let elemento = tr.insertCell(0);
@@ -151,6 +117,7 @@ async function añadirProductoATabla(idTabla) {//Todo:Puede haber más pedidos d
 
         elemento = tr.insertCell(2);
         elemento.innerHTML = "<label name=\"precioUnitario\"></label>";
+
         establecerValoresDeProductos();
 
         elemento = tr.insertCell(3);
@@ -163,13 +130,15 @@ async function añadirProductoATabla(idTabla) {//Todo:Puede haber más pedidos d
         });
 
         elemento = tr.insertCell(4);
-        elemento.innerHTML =
-            "<input class=\"btn btn-secondary btn-sm\" type=\"button\" onClick=\"eliminarProductoDeTabla('" + idTabla + "'," + tr.rowIndex + ")\" value=\"-\">";
-        desabilitarOpcionesRepetidas()
-    }
-    else {
+        if (filas !== 2) {//Primera vez
+            elemento.innerHTML =
+                "<input class=\"btn btn-secondary btn-sm\" type=\"button\" onClick=\"eliminarProductoDeTabla('" + idTabla + "'," + tr.rowIndex + ")\" value=\"-\">";
+            desabilitarOpcionesRepetidas()
+        }
+    } else {//Todo: Para que vuelva a aparecer es necesario borrar una linea
         document.getElementById("noMásFilas").style.display = "inline"
-
+        document.getElementById("noMásFilas").classList.add("fade-out")
+        document.getElementById("noMásFilas").classList.add("fadeOut")
     }
 }
 
@@ -191,8 +160,7 @@ function desabilitarOpcionesRepetidas() {
         for (let j = 0; j < document.getElementsByName("productos")[i].getElementsByTagName("option").length; j++) {
             if (productosSeleccionados.includes(document.getElementsByName("productos")[i].getElementsByTagName("option")[j].value)) {
                 document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = true;
-            }
-            else {
+            } else {
                 document.getElementsByName("productos")[i].getElementsByTagName("option")[j].disabled = false;
 
             }
@@ -211,8 +179,7 @@ function resetearIndicesDeFila(idTabla) {
 
 function establecerValoresDeProductos() {
     for (let i = 0; i < (filas - 1); i++) {//Todo:Ineficiente actualizar todos en vez de solo el que cambia
-        document.getElementsByName("precioUnitario")[i].innerText = "$" + mapaPreciosProductos.get(document.getElementsByName("productos")[i].value)
-
+        document.getElementsByName("precioUnitario")[i].innerText = "$" + productos.find(x => x.id == document.getElementsByName("productos")[i].value).precio
     }
 }
 
@@ -244,29 +211,10 @@ function exportarPDF() {
                 doc.addImage(img2, 'JPEG', 27, 15 + (canvas.height * (doc.internal.pageSize.getWidth() * 1.125 / canvas.width)) - doc.internal.pageSize.getHeight(), doc.internal.pageSize.getWidth() * 1.125, 0);
             }
             // doc.output("dataurlnewwindow")
-            doc.save("test.pdf");
+            doc.save("presupuestoEquiposDeConstruccion.pdf");
         });
     });
 }
-
-// async function imprimir() {
-//     let nuevaVentana = window.open("", "PRINT");
-//
-//     nuevaVentana.document.write("<html>");
-//     nuevaVentana.document.write(document.head.outerHTML);
-//     nuevaVentana.document.write("<body>");
-//     nuevaVentana.document.write(document.getElementById("tabla").outerHTML);
-//     nuevaVentana.document.write(document.getElementById("cuotas").outerHTML);
-//
-//     nuevaVentana.document.write("</body></html>");
-//
-//     nuevaVentana.document.close();
-//     // necessary for IE >= 10
-//     nuevaVentana.focus(); // necessary for IE >= 10*/
-//     await new Promise(r => setTimeout(r, 100));//MUY VILLERO, pero no puedo solucinarlo
-//     nuevaVentana.print()
-//     nuevaVentana.close();
-// }
 
 function imprimir() {
     let div = document.getElementById("imprimir")
