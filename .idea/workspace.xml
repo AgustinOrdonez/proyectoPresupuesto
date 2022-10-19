@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo">
-      <change beforePath="$PROJECT_DIR$/ProgramLogic.js" beforeDir="false" afterPath="$PROJECT_DIR$/ProgramLogic.js" afterDir="false" />
+    <list default="true" id="fb68cc35-f8ed-49dd-8aa1-084034cb872d" name="Changes" comment="Un par de correcciones">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +58,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.tools",
+    "settings.editor.selected.configurable": "JavaScript.Libraries",
     "two.files.diff.last.used.file": "Z:/Mecatronica/Alumnos/Primero/Ordonez/Desarrollo/proyectoPresupuesto/ProgramLogic.js"
   }
 }]]></component>
@@ -115,7 +115,7 @@
       <workItem from="1665573027423" duration="14219000" />
       <workItem from="1665607998695" duration="1370000" />
       <workItem from="1665616770761" duration="5121000" />
-      <workItem from="1666178002134" duration="11271000" />
+      <workItem from="1666178002134" duration="12111000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1664746165268</created>
@@ -187,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666189251582</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Un par de correcciones">
+      <created>1666189969579</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1666189969579</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +280,8 @@
     <MESSAGE value="Ahora descarga el productos.js desde internet" />
     <MESSAGE value="Ahora las opciones no se repiten y el máximo de filas es la cantidad de productos disponibles" />
     <MESSAGE value="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Añadido fade a advertencia, cambio de los productos, ahora hay id. Todo se maneja en base a ellas. Ya no hay función especial para la primera fila de la tabla. Borrado el imprimir viejo" />
+    <MESSAGE value="Un par de correcciones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Un par de correcciones" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
