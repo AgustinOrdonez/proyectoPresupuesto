@@ -137,8 +137,6 @@ async function añadirProductoATabla(idTabla) {
         }
     } else {//Todo: Para que vuelva a aparecer es necesario borrar una linea
         document.getElementById("noMásFilas").style.display = "inline"
-        document.getElementById("noMásFilas").classList.add("fade-out")
-        document.getElementById("noMásFilas").classList.add("fadeOut")
     }
 }
 

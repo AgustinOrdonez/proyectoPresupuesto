@@ -16,7 +16,9 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
     <!--JsPDF-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+            integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+            crossorigin="anonymous"></script>
     <!--html2canvas-->
     <script src="html2canvas.js"></script>
 </head>
@@ -37,20 +39,21 @@
             <th style="width: 10%;">&emsp;&emsp;</th>
         </tr>
     </colgroup>
-<!--    El resto de la tabla la crea el js-->
+    <!--    El resto de la tabla la crea el js-->
 </table>
 <input id="añadirFilas" class="btn btn-secondary btn-sm" type="button" onclick="añadirProductoATabla('tabla')"
-value="+" style="margin-left: 5.4%">
-<label id="noMásFilas" class="alert alert-danger align-items-center" style="display:none">No se pueden añadir más productos</label>
+       value="+" style="margin-left: 5.4%">
+<label id="noMásFilas" class="alert alert-danger align-items-center fade-out fadeOut" style="display:none">No se pueden
+    añadir más productos</label>
 
 
 <div id="cuotas">
-    <table class="text-center table" >
+    <table class="text-center table">
         <colgroup>
             <tr>
-<!--                SE DESALINEA-->
+                <!--                SE DESALINEA-->
                 <td style="width: 10%;">Valor de Cuota ahora 12 sin interés:</td>
-                <td style="width: 10%;"><label  id="valCuotaSinI"></label></td>
+                <td style="width: 10%;"><label id="valCuotaSinI"></label></td>
                 <th style="width: 10%;">Subtotal:</th>
                 <td style="width: 10%;"><label id="subtotal"></label></td>
                 <td style="width: 10%;">&emsp;&emsp;</td>
@@ -75,10 +78,10 @@ value="+" style="margin-left: 5.4%">
 </div>
 <br>
 
-<input class="btn btn-primary" type="button" onclick="calcularTotal()" value="Calcular total" >
+<input class="btn btn-primary" type="button" onclick="calcularTotal()" value="Calcular total">
 
-<input type="image" src="ExportToPDF.png" height="50" onclick="exportarPDF()" style="position: absolute; right: 10%; " >
-<input type="image" src="printer.png" height="50" type="button" onclick="imprimir()"  style="position: absolute; right: 17%;" >
+<input type="image" src="ExportToPDF.png" height="50" onclick="exportarPDF()" style="position: absolute; right: 10%; ">
+<input type="image" src="printer.png" height="50" onclick="imprimir()" style="position: absolute; right: 17%;">
 </body>
 </html>
 
